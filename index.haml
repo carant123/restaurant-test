@@ -1,0 +1,133 @@
+-gallery_images = ["club-sandwich.jpg", "papas.jpg", "hamburger.jpg", "panini.jpg","club-sandwich.jpg", "papas.jpg"]
+
+!!!5
+%html{class:"no-js", lang:"es"}
+	%head 
+		%meta{charset:"utf-8"}
+		%title La mejor comida en Restaurante 
+		%meta{name:"description", content:"Come rico en el mejor restaurante de la ciudad, servicio de primera."}
+		%link{href:"https://fonts.googleapis.com/css?family=Dancing+Script|Lobster", rel:"stylesheet"}
+		%link{rel:"stylesheet", href:"css/normalize.css"}
+		%link{rel:"stylesheet", href:"css/bootstrap.css"}
+		%link{rel:"stylesheet", href:"https://cdn.jsdelivr.net/flexboxgrid/6.3.2/flexboxgrid.min.css"}
+		%link{rel:"stylesheet", href:"css/main.css"}
+		%meta{name:"viewport", content:"width=device-width, initial-scale=1"}
+		%meta{:"data-name" => "image-counter", content:"#{gallery_images.length - 1}"}
+		%script{src:"js/vendor/modernizr-2.8.3.min.js"}
+	%body
+		="<!--[if lt IE 9]>"
+		%p{class:"browserupgrade"}
+			Estas usando un navegador
+			%strong desactualizado.
+			Por favor
+			%a{href: "http://browsehappy.com/"}
+				actualiza tu navegador
+				para una mejor experiencia
+		="<![endif]-->"
+		.video-container
+			%video{autoplay:true, loop:true, width:"1280", height:"720", poster:"img/shrimps.jpg"}
+				%source{src:"videos/mp4/shrimps.mp4", typ:"video/mp4"}
+				%source{src:"videos/webm/shrimps.webm", typ:"video/webm"}
+		.row.middle-xs.full-height.center-xs.up.relative#home
+			.col-xs-12
+				.box.white-text
+					%img{src:"img/logo.png", width:"200"}
+					%h1.dancing-script.title.no-margin Restaurante
+					%p#is-open 
+						%i.glyphicon.glyphicon-time
+						%span.text Abierto ahora
+			%nav.top.right.fixed.navigation.white-text#navigation
+				-menu = [{title:"Home",link:"#home"}, {title:"Menu",link:"#menu"}, {title:"Galeria",link:"#gallery"}, {title:"Contacto",link:"#contact"}, {title:"Como llegar",link:"#location"}]
+				%ul.list-inline
+					-menu.each do |item|
+						%li
+							%a.menu-link{href:item[:link]}= item[:title]
+			.absolute.black.large-padding.full-width.white-text#description
+				.row.middle-xs.center-xs
+					.col-xs-7.col-sm-6.white-text.medium
+						Atencion calida y comida preparada por artistas
+					.col-xs.hidden#sticky-navigation
+						.box
+							%nav.text-right.navigation#responsive-nav
+								%i.glyphicon.glyphicon-menu-hamburger.white-text.subtitle.glyphicon-remove#menu-opener
+								%ul.list-inline
+									-menu.each do |item|
+										%li
+											%a.menu-link{href:item[:link]}= item[:title]
+		.text-center.relative#menu
+			.absolute.white#menu-title
+				%h2.dancing-script.title Menu
+			-menu_photos = [{name: "Club Sandwich", pricing:"10.00", image:"club-sandwich"},
+			{name: "Combo hamburguesa", pricing:"50.00", image:"combo"},
+			{name: "Hamburguesa", pricing:"20.00", image:"hamburger"},
+			{name: "Hot cakes", pricing:"30.00", image:"hot-cakes"},
+			{name: "Panini", pricing:"15.00", image:"panini"},
+			{name: "Papas", pricing:"10.00", image:"papas"},
+			{name: "Club Sandwich", pricing:"10.00", image:"club-sandwich"},
+			{name: "Hamburguesa", pricing:"20.00", image:"hamburger"}]
+
+			.row
+				-menu_photos.each do |photo|
+					.col-md-4.col-lg-3.col-sm-6.col-xs-12.food{style:"background-image:url(img/food/#{photo[:image]}-thumb.jpg)"}
+						.screen
+							.row.middle-xs.full-height
+								.col-xs-12
+									%h3.dancing-script.white-text.subtitle= photo[:name]
+									%p.no-margin.white-text= photo[:pricing] + "USD"
+		#gallery
+			.inner
+				-gallery_images.each do |image|
+					.image{style:"background-image:url(img/food/#{image})"}
+		.container
+			.card.white.black-text.text-center.relative
+				%h3.medium.slim
+					En
+					%strong.dancing-script.medium Restaurante
+					cocinar no es una profesion, no es una tecnica, es un
+					%strong.dancing-script.medium arte
+				%p 
+					Informacion del restaurante
+
+		.black.white-text.full-height#contact
+			.row.middle-xs.full-height
+				.col-xs-12
+					.box
+						%p.text-center.medium#info-contacto Presiona enter para llenar el campo correspondiente
+						%form{action:"https://formspree.io/uriel",method:"POST",id:"contact-form",class:"step-form"}
+							.row.center-xs
+								.col-xs-12.col-sm-2.col-md-1.first-sm
+									.box
+										-3.times do |i|
+											-if i == 0
+												.path-step.active
+											-else
+												.path-step
+								.col-xs-12.col-sm-3.first-xs
+									.box
+										%fieldset.step.active
+											%input{type:"email", name:"email", placeholder:"Correo electronico",class:"input", required:true}
+										%fieldset.step
+											%input{type:"text", name:"name", placeholder:"Nombre",class:"input", required:true}
+										%fieldset.step
+											%textarea{name:"body", placeholder:"Mensaje",class:"input", required:true}
+										-# %div
+										-# 	%button{type:"submit", class:"btn"}
+										-# 	Enviar
+		#location
+			#map
+			#message.black.large-padding.white-text.text-center.medium
+				Prueba
+
+		-# .full-height
+
+
+		%script{src:"http://code.jquery.com/jquery-3.2.1.min.js", integrity:"sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=",crossorigin:"anonymous"}
+
+		%script
+			window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
+		%script{src:"https://maps.googleapis.com/maps/api/js?key=AIzaSyBbKs_Fs2K1tEhKGTw5UL6HiCHtrvxfUIQ"}
+		%script{src:"dist/app.js"}
+		-# %script{src:"js/maps.js"}
+		-# %script{src:"js/form_obj.js"}
+		-# %script{src:"js/main.js"}
+		-# %script{src:"js/steps.js"}
